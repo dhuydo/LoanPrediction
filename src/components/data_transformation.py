@@ -24,24 +24,24 @@ class DataTransformation:
         '''
         
         try:
-            num_features = ['ApplicantIncome', 'CoapplicantIncome', 'LoanAmount',
-            'Loan_Amount_Term']
             cat_features = ['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed',
             'Credit_History', 'Property_Area']
+            num_features = ['ApplicantIncome', 'CoapplicantIncome', 'LoanAmount',
+            'Loan_Amount_Term']
             logging.info(f'Numerical columns: {num_features}')
             logging.info(f'Categorical columns: {cat_features}')
             
             logging.info('Create transformer object')
-            num_pipe = Pipeline([
-                ('scaler', StandardScaler())
-            ])
             cat_pipe = Pipeline([
                 ('ohe', OneHotEncoder(sparse_output=False)),
                 ('scaler', StandardScaler())
             ])
+            num_pipe = Pipeline([
+                ('scaler', StandardScaler())
+            ])
             pipe = ColumnTransformer([
-                ('num_pipe', num_pipe, num_features),
-                ('cat_pipe', cat_pipe, cat_features)
+                ('cat_pipe', cat_pipe, cat_features),
+                ('num_pipe', num_pipe, num_features)
             ])
             logging.info('Data transformer was created')
             
