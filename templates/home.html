@@ -1,0 +1,84 @@
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Loan Application</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        html{
+            overflow: hidden;
+        }
+
+        body{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #login-form-container{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login">
+       <h1>PREDICT APPROVED LOAN APPLICATION</h1>
+        
+       <form action="{{ url_for('predict')}}"method="post">
+         <input type="text" name="Gender" placeholder="Gender" list="Gender" required="required" autocomplete="off">
+           <datalist id="Gender">
+             <option value="Male"></option>
+             <option value="Female">Nữ</option>
+           </datalist>
+         <input type="text" name="Married" placeholder="Married" list="Married" required="required" >
+           <datalist id="Married">
+             <option value="Yes"></option>
+             <option value="No"></option>
+           </datalist>
+         <input type="text" name="Dependents" placeholder="Dependents" list="Dependents" required="required">
+           <datalist id="Dependents">
+             <option value="0"></option>
+             <option value="1"></option>
+             <option value="2"></option>
+             <option value="3+"></option>
+           </datalist>
+         <input type="text" name="Education" placeholder="Education" list="Education" required="required" >
+           <datalist id="Education">
+             <option value="Graduate"></option>
+             <option value="Not Graduate"></option>
+           </datalist>
+         <input type="text" name="Self_Employed" placeholder="Self Employed" list="Self_Employed" required="required" />
+           <datalist id="Self_Employed">
+             <option value="Yes"></option>
+             <option value="No"></option>
+           </datalist>
+         <input type="text" name="Credit_History" placeholder="Credit History" list="Credit_History" required="required" />
+           <datalist id="Credit_History">
+             <option value="Yes">Have credit history</option>
+             <option value="No">Do not have credit history</option>
+           </datalist>
+         <input type="text" name="Property_Area" placeholder="Property Area" list="Property_Area" required="required" />
+           <datalist id="Property_Area">
+             <option value="Semiurban"></option>
+             <option value="Urban"></option>
+             <option value="Rural"></option>
+           </datalist>
+         <input type="number" min=0 name="ApplicantIncome" placeholder="Applicant Income" required="required" />
+         <input type="number" min=0 name="CoapplicantIncome" placeholder="Coapplicant Income" required="required" />
+         <input type="number" min=0 name="LoanAmount" placeholder="Loan Amount" required="required" />
+         <input type="number" min=0 name="Loan_Amount_Term" placeholder="Loan Term" required="required" />
+   
+         <button type="submit" class="btn">Predict</button>
+       
+       </form>
+       <p style="color:rgb(34, 139, 34);font-size:large">{{result}}</p>
+    </div>
+</body>
+</html>
