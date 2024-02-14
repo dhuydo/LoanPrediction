@@ -7,7 +7,7 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.preprocessing import StandardScaler, OneHotEncoder, FunctionTransformer
 from sklearn.compose import ColumnTransformer
 
 @dataclass
@@ -37,6 +37,7 @@ class DataTransformation:
                 ('scaler', StandardScaler())
             ])
             num_pipe = Pipeline([
+                ('log', FunctionTransformer(lambda x: np.log(x+1), validate=True)),
                 ('scaler', StandardScaler())
             ])
             pipe = ColumnTransformer([

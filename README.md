@@ -1,16 +1,15 @@
 # Loan Application Approvement Project
 
-The objective of this project is to classify whether a customer will be approved for loan or not. In this project, there will be some model improvement to improve the performance. This project will also utilize a pipeline to integrate some of preprocessing steps and modeling steps.
+The objective of this project is to classify whether a customer will be approved for loan or not. In this project, we will use some classification algorithms and tune the hyperparameters to improve the performance. We will also utilize a pipeline to integrate some of preprocessing and modeling steps.
 
 # Deployment
 
 You can try to predict some values here: https://fadilah-milestone2p1.herokuapp.com/
 
-Template by Fadilah, powered by Bootstrap v5.1.
 
-# Data Source
+# Data Set
 
-Obtained from UCI ML: <a href="https://archive.ics.uci.edu/ml/datasets/Online+Shoppers+Purchasing+Intention+Dataset#"> link </a>
+Obtained from Kaggle: <a href="https://www.kaggle.com/datasets/altruistdelhite04/loan-prediction-problem-dataset/data"> link </a>
 
 This dataset contains user activity on a e-commerce, there are 17 predictor and a target variable that determined whether the user end-up shopping or not after going through the website (simply bring revenue or not). Of the 12,330 sessions in the dataset, 84.5% (10,422) were negative class samples that did not end with shopping, and the rest (1908) were positive class samples ending with shopping.
 
