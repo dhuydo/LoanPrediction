@@ -1,7 +1,7 @@
 import os,sys
 from src.exceptions import CustomException
 from src.logger import logging
-# from src.components.data_transformation import DataTransformationConFig, DataTransformation
+from src.components.data_transformation import DataTransformationConFig, DataTransformation
 # from src.components.model_training import ModelTrainingConfig, ModelTraining
 from warnings import filterwarnings
 filterwarnings('ignore')
@@ -30,11 +30,11 @@ class Dataingestion:
             os.makedirs(os.path.dirname(self.ingestionConfig.train_data_path), exist_ok=True)
             df.to_csv(self.ingestionConfig.raw_data_path, index=False, header=True)
             
-            logging.info('Initiate train test split')
-            train, test = train_test_split(df, stratify=df.Loan_Status,test_size=0.2, random_state=29)
+            logging.info('Initiate train val split')
+            train, val = train_test_split(df, stratify=df.Loan_Status,test_size=0.2, random_state=29)
             
             train.to_csv(self.ingestionConfig.train_data_path, index=False, header=True)
-            test.to_csv(self.ingestionConfig.val_data_path, index=False, header=True)
+            val.to_csv(self.ingestionConfig.val_data_path, index=False, header=True)
             
             logging.info('Data ingestion completed')
             
@@ -47,12 +47,12 @@ class Dataingestion:
         
 if __name__=='__main__':
     obj = Dataingestion()
-    obj.initiate_data_ingestion()
+    train_path, val_path = obj.initiate_data_ingestion()
    
-    # data_tranformation = DataTransformation()
-    # df_train, df_test, _ = data_tranformation.initiate_data_transformation(train_path, test_path)
+    data_tranformation = DataTransformation()
+    df_train, df_val, _ = data_tranformation.initiate_data_transformation(train_path, val_path)
     
     # model_training = ModelTraining()
-    # print(model_training.initiate_model_training(df_train, df_test))
+    # print(model_training.initiate_model_training(df_train, df_val))
     
 
