@@ -2,7 +2,7 @@ import os,sys
 from src.exceptions import CustomException
 from src.logger import logging
 from src.components.data_transformation import DataTransformationConFig, DataTransformation
-# from src.components.model_training import ModelTrainingConfig, ModelTraining
+from src.components.model_training import ModelTrainingConfig, ModelTraining
 from warnings import filterwarnings
 filterwarnings('ignore')
 
@@ -51,8 +51,7 @@ if __name__=='__main__':
    
     data_tranformation = DataTransformation()
     df_train, df_val, _ = data_tranformation.initiate_data_transformation(train_path, val_path)
-    
-    # model_training = ModelTraining()
-    # print(model_training.initiate_model_training(df_train, df_val))
+    model_training = ModelTraining()
+    print(model_training.initiate_model_training(df_train, df_val))
     
 
