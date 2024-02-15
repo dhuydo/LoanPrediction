@@ -18,9 +18,9 @@ def index():
 def predict():
     input = [instance for instance in request.form.values()]
     data = GetData(input).get_data_asframe()
-    # y_pred = PredictPipeline().predict(data)[:,1]
-    # result = f'Loan Application approved: {(y_pred>=0.5)[0]}, with probability of being approved: {(y_pred)[0]:.4f}'
-    return render_template('home.html',result=data)
+    y_pred = PredictPipeline().predict(data)[:,1]
+    result = f'Loan Application approved: {(y_pred>=0.5)[0]}, with probability of being approved: {(y_pred)[0]:.4f}'
+    return render_template('home.html',result=result)
 
 
 if __name__=='__main__':
