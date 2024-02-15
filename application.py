@@ -12,7 +12,7 @@ app = Flask(__name__)
 def index():
     return render_template('home.html')
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET','POST'])
 def predict():
     if request.method == 'GET':
         return render_template('home.html')
