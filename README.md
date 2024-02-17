@@ -1,68 +1,48 @@
 # Loan Application Approvement Project
 
-The objective of this project is to classify whether a customer will be approved for loan or not. In this project, we will use some classification algorithms and tune the hyperparameters to improve the performance. We will also utilize a pipeline to integrate some of preprocessing and modeling steps.
+The objective of this project is to classify whether a applicant will be approved for loan or not. In this project, we will use some classification algorithms and tune the hyperparameters to improve the performance. We will also utilize a pipeline to integrate some of preprocessing and modeling steps.
 
-# Deployment
+## Deployment
 
-You can try to predict some values here: https://fadilah-milestone2p1.herokuapp.com/
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://loan-application-approvement.onrender.com/)
 
+## Data Set
 
-# Data Set
+Obtained from Kaggle: <a href="https://www.kaggle.com/datasets/altruistdelhite04/loan-prediction-problem-dataset/"> link </a>
 
-Obtained from Kaggle: <a href="https://www.kaggle.com/datasets/altruistdelhite04/loan-prediction-problem-dataset/data"> link </a>
+This dataset contains personal characteristics and loan status of applicants respectively, with 11 predictor features and 1 target features. Of the 614 instances in the dataset, 68.73% (422) were positive class that approved to loan, and the rest (192) were negative class samples ending with unapproved.
 
-This dataset contains user activity on a e-commerce, there are 17 predictor and a target variable that determined whether the user end-up shopping or not after going through the website (simply bring revenue or not). Of the 12,330 sessions in the dataset, 84.5% (10,422) were negative class samples that did not end with shopping, and the rest (1908) were positive class samples ending with shopping.
+The dataset consists of 4 numerical and 8 categorical features. The 'Loan_Status' feature was used as the class label. Each instance represent for one applicant.
 
-The dataset consists of 10 numerical and 8 categorical attributes. The 'Revenue' attribute can be used as the class label.
+## Insights
 
-The dataset consists of feature vectors belonging to 12,330 sessions. The dataset was formed so that each session would belong to a different user in a 1-year period to avoid any tendency to a specific campaign, special day, user profile, or period.
-
-# Insights
-
-You can also see the analysis from here: <a href="https://fadilah-milestone2p1.herokuapp.com/insights"> link </a>
-
--	For each customer, If the BounceRates increase then the ExitRates will follow and vice versa. This means, if a customer just leaves the page without doing anything, the ExitRates for that customer will increase.
--	If a customer has a higher PageValue compared to others, this customer will more likely to bring revenue because they have a high tendency to do shopping.
--	Most of the customer that will end up buying things in the session is the returning visitor. The customer who has been on the website is more likely to buy things.
+- Most of applicants without credit history was not approved.
+- For each applicant, the higher income of applicant and/or coapplicant, the higher positive rate.
+- The applicants with urban and semiurban tended to be approved more than the rural ones.
+- Loan amount inversely proportional to loan status.
 
 **Recommendation**
 
--	Offer vouchers to those that have been browsing a lot of similar keywords or clicking through different pages during a session.
--	Offer a special voucher for the returning visitor once they marked several similar items, or revisit the items that they’ve visited before to boost their buying urgency.
+- Credit history and income are the most affected factors. Therefore, it might be able to set a threshold for income and combine with the sredit status for faster screening.
+- With applicants from different regions, it might be able to advise them for more suitable loan packages.
 
-# Preprocessing
+## Cleaning
 
-1.	Convert target variable to numerical format.
-2.	Feature encoding for nominal and cyclical features. For nominal will use one-hot encoding and for cyclical data will use sin cos transformation.
-3.	Outlier treatment using several steps, such as logarithmic transformation, cap the outlier using Tukey method.
-4.	Binning the least frequent value of a nominal variable that has been previously encoded to some labels. After that, encode the values using a one-hot encoder.
-5.	Split the dataset into 70% training, 20% validation (separate validation set, different from the one in cross-validation), and 10% test set for model inference.
-6.	Feature Standardization Scaling and SMOTE oversampling (sampling strategy = 1/3) that integrate inside the pipeline for each base model and best model.
+In our dataset, 5 features have null values, in which 4 can be filled with median for numerical features and most frequent class for categorical features. Except for credit score, we used classification algorithm to predict null cases with charateristics respectively.
 
-# Evaluation
+## Preprocessing
 
-The evaluation metrics that will be the main concern in this project are AUC and Precision. The reason behind this decision is due to the nature of the data that has an imbalance class, thus the accuracy won’t represent the model's actual performance. As for Precision, we want to minimize the number of False Positives that will happen. This is based on the consideration of which error will bring more harm towards the company, mostly revenue and ROI (Return on Investment).
+1. Convert target variable to numerical format.
+2. Fill null values using simple imputer.
+3. Apply log transformation for numerical features.
+4. Feature encoding for categorical and numerical features using one-hot encoding and standard scaler.
+5. Split the dataset into 80% training, 20% tesing.
 
-The result of this prediction model can be utilized to decide whether to give a promotional voucher or coupon or discount or even rebate towards the customer than predicted to be ended up buying things (bring revenue). The Redemption rate (the rate of costumer that redeemed a voucher/coupon) will be very low if we have a lot of False Positives, this will also affect the company's ROI since they have allocated their budget for promotion/making a campaign.
+## Evaluation
+
+The evaluation metrics that will be the main concern in this project are weighted F1 score. The reason behind this decision is due to the nature of the data that is quite small and has an imbalance class, thus the accuracy won’t represent the model's actual performance.
 
 # Model Analysis
 
-The best algorithm on the base model and best model (hyperparameter tuned) is consistent, which is Random Forest. In Random forest, the most important 10 features are:
--	PageValues, ExitRates, ProductRelated_Duration, ProductRelated, BounceRates, Administrative_Duration, Month_sin, Administrative, Month_cos, and TrafficType.
+Amongst the classifier, Logistic Regression performed the best. The performance also seems to be okay on the new data since this model has an F1-score of around 78% on test set. Despite of its simplicity, this model has learned the rules underlying the data and also becomes less overfitted towards the training set after hyperparameter tuning has been done. Even so, there is some room for improvement towards this project, we can try another sampling strategy or more hyperparameters to be specific to have more improvement in the training and validation performances.
 
-Except for PageValues, the score between other predictors doesn’t have a big difference, which means that all of them have similar contributions toward the model capability in predicting the target variable.
-
-**Insights from Modeling**
-
-Amongst the features/predictors, the 3 most important features are PageValues, ExitRates, and ProductRelated_Duration. These 3 features show how long they’ve been browsing several items on the website and the rate of how many people exit the page while they’re browsing. If we compare to EDA steps, this seems familiar as we previously have detected significant differences between the value for class 0 and class 1 in these features, especially PageValues and ExitRates. PageValues also has the smallest Gini impurity index since it is the most important feature compared to the other available features, even the score is much higher than the rest of the top important features. Also, if we take a look at the correlation matrix, this feature is the only one that has a medium correlation with the target variable.
-
-**Best Model**
-
-The best model obtained from the best model grid search by tuning them is Random Forest. The hyperparameters of the chosen model are as follows:
-- max_depth=10
-- min_samples_leaf=10
-- The rest of the model hyperparameters are set to default.
-
-The main evaluation metrics for this project is AUC due to the class imbalance of the target variable. Besides that, the Precision score will also be a concern for this project evaluation based on our objective. If we compare the best score on cross-validation: validation set (test set) between the base model and the best model of the Random Forest, we get a small increase in AUC from 92.36% to 92.93%. For precision, unfortunately, there is a small decrease, from 68% to 67%. Besides the main evaluation metrics, we also successfully increase the F1 from 64% to 67% and Recall from 61% to 68%. These scores are obtained from the mean test score inside the cross-validation.
-
-Amongst the classifier, Random Forest tends to be more consistent and stable on all 4 evaluation metrics. The performance also seems to be okay on the new data since this model has an AUC of around 80% on a separate validation set and test set. This model has learned the rules underlying the data that make it can differentiate between class 1 and class 0 (between those customers who will end up buying and bring revenue and the ones that won't). This model also becomes less overfitted towards the training set after hyperparameter tuning has been done. Even so, there is some room for improvement towards this project, we can try another sampling strategy or more hyperparameter on Random Forest to be specific to have more improvement in the training and validation performances.

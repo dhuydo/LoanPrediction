@@ -1,4 +1,4 @@
-import os, sys
+import sys
 from src.exceptions import CustomException
 from src.logger import logging
 from src.utils import load_obj
@@ -31,8 +31,8 @@ class PredictPipeline:
         
         try:
             logging.info('Load preprocessor and model')
-            preprocessor_path = './artifacts/preprocessor.pkl'
-            model_path = './artifacts/model.pkl'
+            preprocessor_path = 'artifacts/preprocessor.pkl'
+            model_path = 'artifacts/model.pkl'
             
             preprocessor = load_obj(preprocessor_path)
             model = load_obj(model_path)
