@@ -42,7 +42,7 @@ In our dataset, 5 features have null values, in which 4 can be filled with media
 
 The evaluation metrics that will be the main concern in this project are weighted F1 score. The reason behind this decision is due to the nature of the data that is quite small and has an imbalance class, thus the accuracy won’t represent the model's actual performance.
 
-# Model Analysis
+## Model Analysis
 
 Amongst the classifier, Logistic Regression performed the best. The performance also seems to be okay on the new data since this model has an F1-score of around 78% on test set. Despite of its simplicity, this model has learned the rules underlying the data and also becomes less overfitted towards the training set after hyperparameter tuning has been done. Even so, there is some room for improvement towards this project, we can try another sampling strategy or more hyperparameters to be specific to have more improvement in the training and validation performances.
 
